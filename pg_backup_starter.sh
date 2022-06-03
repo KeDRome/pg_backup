@@ -67,7 +67,6 @@ if (($BACKUP_USER == 'd' | $BACKUP_USER == 'postgres' )); then
         echo "[1.2] С паролем по умолчанию.. $USER_PASSWORD"
     else
         echo "[1.2] С собственным паролем.. $USER_PASSWORD" 
-    check_user()
 else
     echo "[1.1] Выбран пользователь $BACKUP_USER"
     if (($USER_PASSWORD == 'd' )); then
@@ -75,5 +74,22 @@ else
         echo "[1.2] С паролем по умолчанию.. $USER_PASSWORD"
     else
         echo "[1.2] С собственным паролем.. $USER_PASSWORD" 
-    check_user()
+fi
+
+echo "[2.0] Резервная копия PostgreSQL."
+$BACKUP_STORAGE = $BACKUP_STORAGE/$(date +%m.%d.%Y)
+echo "[2.1] Создаем каталог для бэкапа.. $BACKUP_STORAGE"
+mkdir $BACKUP_STORAGE
+if [ $? -eq 0 ]; then
+    echo "[2.1.+] Каталог успешно создан!"
+else 
+    echo "[2.1.-] Каталог не был создан.."
+    exit
+echo "[2.2] Создаем бэкап"
+pg_basebackup -v -h localhost -U $BACKUP_USER -W $USER_PASSWORD -D $BACKUP_STORAGE
+if [ $? -eq 0 ]; then
+    echo "[2.2.+] Резервная копия успешно создана!"
+else
+    echo "[2.2.-] Во время создания резервной копии возникли ошибки!"
+    exit
 fi
