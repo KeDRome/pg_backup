@@ -15,10 +15,8 @@ BACKUP_STORAGE_bydefault='/backup'
 BACKUP_USER=$2
 BACKUP_USER_bydefault='postgres'
 
-
 USER_PASSWORD=$3
 USER_PASSWORD_bydefault='xxXX1234'
-
 
 check_storage(){
     echo "[0.2] Проверка существования.."
@@ -97,7 +95,7 @@ else
 fi
 echo "*:*:*:$BACKUP_USER:$USER_PASSWORD" > $PGPASSFILE
 echo "[2.2] Создаем бэкап"
-pg_basebackup --format=tar -X fetch --gzip --progress -h localhost -U $BACKUP_USER -D $BACKUP_STORAGE 
+pg_basebackup --checkpoint=fast --format=tar -Xfetch --gzip --progress -h localhost -U $BACKUP_USER -D $BACKUP_STORAGE 
 if [ $? -eq 0 ]; then
     echo "[2.2.+] Резервная копия успешно создана!";
 else
