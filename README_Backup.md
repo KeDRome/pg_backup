@@ -1,8 +1,8 @@
 # PostgreSQL_Backup
 Этот скрипт позволяет выполнять **репликацию БД PostgreSQL**
->sh ./pg_backup_starter [/path/to/backup-storage|d] [username|d] [password|d]
+>sh ./pg_backup_starter.sh [/path/to/backup-storage|d] [username|d] [password|d]
 
-Пример: ./pg_backup_starter /mystorage/backup_folder postgres password2112 
+Пример: ./pg_backup_starter.sh /mystorage/backup_folder postgres password2112 
 
 # Зависимости
 ## Пользователь
