@@ -98,6 +98,7 @@ echo "[2.2] Создаем бэкап"
 pg_basebackup --checkpoint=fast --format=tar -Xfetch --gzip --progress -h localhost -U $BACKUP_USER -D $BACKUP_STORAGE 
 if [ $? -eq 0 ]; then
     echo "[2.2.+] Резервная копия успешно создана!";
+    echo "[ВСЕ ОПЕРАЦИИ УСПЕШНО ЗАВЕРШЕНЫ]"
 else
     echo "[2.2.-] Во время создания резервной копии возникли ошибки!"
     exit
